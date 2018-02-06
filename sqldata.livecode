@@ -1,0 +1,21 @@
+on openStack
+   put revOpenDatabase("sqlite", "sqldata.db", , ,) into sqldataDB
+   if sqldataDB is not an integer then
+      put sqldataDB
+      exit openStack
+   end if
+   put "SELECT * FROM songs" into tSQL
+   put revDataFromQuery(tab, cr, sqldataDB, tSQL) into tRecords
+   put empty into tData
+   set itemdel to tab
+   repeat for each line n in tRecords
+      put "[ " &\ 
+      quote & item 1 of n & quote & ", " &\
+      quote & item 2 of n & quote & ", " &\
+      quote & item 3 of n & quote & ", " &\
+      quote & item 4 of n & quote & "] | " after tData
+   end repeat
+   delete char -3 to -1 in tData
+   revCloseDatabase sqldataDB
+   put tData
+end openStack
