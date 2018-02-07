@@ -18,5 +18,6 @@ For simplicity I use SQLite as the database for this example project.
 -------------------------------------------------------------------------------------------------------------------------------
 * [Download and install websocketd](https://github.com/joewalnes/websocketd/wiki/Download-and-install)
 * Open command prompt and go to application folder created with LiveCode or ./sqldata folder if download from prebuild binaries
+* If you are using linux, make sure file sqldata have execute permission
 * $ websocketd --port=8080 --staticdir=. ./sqldata -ui
 * Open http://localhost:8080/sqldata.html with your browser
