@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+th {
+    text-align: left;
+}
+</style>
+</head>
+<body>
+<table>
+	<thead>
+		<tr>
+		  <th>Song Title</th>
+		  <th>Artist Name</th>
+		  <th>Release Date</th>
+		  <th>Downloads</th>
+		</tr>
+	</thead>
+	<tbody id="tbody">
+		<!-- insert table row value from script -->
+	</tbody>
+</table>
+<script>
+	function insertTableData(tData) {
+		tData.forEach(function(rData) {
+			var row = document.createElement('tr');
+			rData.forEach(function(cData) {
+				var cell = document.createElement('td');
+				cell.appendChild(document.createTextNode(cData));
+				row.appendChild(cell);
+			});
+			tbody.appendChild(row);
+		});
+	}
+	var ws = new WebSocket("ws://localhost:8080/");
+	ws.onmessage = function(event) {
+		var tData = [];
+		var str = event.data;
+		var rs = str.split(" | ");
+		rs.forEach((r, index) => {
+			var row = JSON.parse(r);
+			tData.push(row);
+		});	
+		insertTableData(tData);
+	};
+</script>
+</body>
+</html>
